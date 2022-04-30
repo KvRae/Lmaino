@@ -1,0 +1,58 @@
+{% extends "base.html.twig"%}
+{% block body %}
+    <div class="news-block">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9">
+                    <h1 class="newsblock-title">Article</h1>
+                    <div class="row">
+                        <div class="col-3 news-bg"><img src="{{ asset("assets/img/")~article.imageArticle }} width= 156px" /></div>
+                        <div class="col-9 news-bg">
+                            <h1 class="newsblock-title-under">{{ article.titreArticle}}</h1>
+                            <p>{{ article.descriptionArticle }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <h3>Comments</h3>
+            <a href="{{ path('app_commentaires_new') }}">
+                <button class="btn btn-light" style="margin-left: 601px;margin-top: -9px;" type="button">Add Comment</button>
+            </a>
+        </div>
+        <div class="card-body" style="height: 233px;">
+            <ul class="list-group">
+                {% for commentaire in commentaires %}
+                    {% if article.idarticle == commentaire.titreArticle.idArticle %}
+                        <li class="list-group-item" style="margin-bottom:6px;">
+                            <div class="d-flex media">
+                                <div></div>
+                                <div class="media-body">
+                                    <div class="d-flex media" style="overflow:visible;">
+                                        <div><img class="me-3" style="width: 25px; height:25px; margin-right:5px" src="{{ asset("assets/img/avatar.png") }}"></div>
+                                        <div style="overflow:visible;" class="media-body">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <p><a href="#">{{ commentaire.titreCommentaire }}:</a> {{ commentaire.contenuCommentaire }} <br>
+                                                        <small class="text-muted">{{ commentaire.dateCommentaire|date("Y-m-d") }}</small></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    {% endif %}
+                {% else %}
+                    <h2>il n'ya pas de commentaires </h2>
+                {% endfor %}
+
+            </ul>
+
+        </div>
+    </div>
+{% endblock %}
